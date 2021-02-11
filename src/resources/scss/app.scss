@@ -1,0 +1,54 @@
+@import "./Base/reset";
+@import "./Base/customize";
+@import "./Helpers/variables";
+@import "./Helpers/mixin";
+
+
+.card--descrip{
+    height: 70px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:3 ;
+}
+.card--title{
+    height: 40px;
+    display: block;
+    
+}
+.parrent-menu{
+    position: relative im !important;
+}
+.hiden-list{
+    position: absolute i !important;
+    top: 0;
+    right: 0 im !important;
+}
+.courses-title{
+    display: flex;
+    justify-content: space-between;
+    a{
+        font-size: 1.3rem;
+        color: black;
+        text-decoration: none;
+        font-weight: normal;
+        i{
+            margin-right: 5px;
+        }
+        transition: all .8s;
+        :hover{
+            color: chocolate;
+        }
+    }
+    
+}
+.check-all{
+    display: flex;
+    justify-content: start;
+    
+    .check-all--option{
+        margin: 0 20px;
+        width: 300px;
+    }
+   
+}

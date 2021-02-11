@@ -1,0 +1,111 @@
+<div class="mt-4">
+    <div class="courses-title">
+        <h3>Khóa học của tôi</h3>
+        <a href="/me/trash/courses"><i class="fas fa-trash">Thùng rác({{deletedCount}})</i></a>
+    </div>
+    <div class="mt-3 mb-3 check-all">
+        <div class="form-check check-all--select">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Chọn tất cả</label>
+        </div>
+        <div class="form-group check-all--option">
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option>---Hành động---</option>
+                <option>Xóa</option>
+                <option>3</option>
+            </select>
+        </div>
+        <button class="btn btn-primary check-all--active disabled">Thực hiện</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">STT</th>
+                <th scope="col">Tên khóa học</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col">Trình độ</th>
+                <th scope="col">Ảnh</th>
+                <th scope="col">VideoId</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+
+            {{#each courses}}
+            <tr>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" value="{{this._id}}" name="courseIds[]">
+                    </div>
+                </td>
+                <th scope=" row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>emty</td>
+                <td>{{this.level}}</td>
+                <td>{{this.image}}</td>
+                <td>emty</td>
+                <td><a href="/courses/{{this._id}}/edit" class="btn btn-warning">Sửa</a> </td>
+                <td><a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+                        data-id={{this._id}}>Xóa</a> </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td class="text-center" colspan="6">Bạn chưa đăng khóa học nào !! <a href="/courses/create">Đăng khóa
+                        học</a></td>
+            </tr>
+
+            {{/each}}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnDeleteCourse">Xác
+                    nhận</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- delete hiden form --}}
+<form method="POST" name="delete-course-form"></form>
+<script>
+    const btnDeleteCourse = document.getElementById('btnDeleteCourse');
+    const deleteForm = document.forms['delete-course-form'];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let id;
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            id = button.data('id');
+        })
+
+        btnDeleteCourse.onclick = () => {
+            deleteForm.action = `/courses/${id}/?_method=DELETE`;
+            deleteForm.submit();
+        }
+    })
+</script>
